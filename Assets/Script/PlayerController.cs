@@ -3,6 +3,7 @@
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
+    //0.5초 안에 공격하면 콤보를 이어나갈 수 있다.
     public float comboTolerance = 0.5F;
     private const float GRAVITY_VALUE = -9.81f;
 
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private float currentComboAcc = 0.0F;
     private Vector3 playerVelocity;
-    private bool isGround;
+    private bool isGround = false;
     private float playerSpeed = 2.0f;
     private float jumpHeight = 1.0f;
 
@@ -25,9 +26,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         checkIsGround();
 
-        tryPlayAniamtion();
+        tryPlayAttackAnim();
 
         tryMove();
 
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
         applyGravity();
     }
 
-    void tryPlayAniamtion()
+    private void tryPlayAttackAnim()
     {
 
         currentComboAcc += Time.deltaTime;
@@ -57,13 +59,10 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        animator.SetFloat("horizontal", Input.GetAxis("Horizontal"));
-        animator.SetFloat("vertical", Input.GetAxis("Vertical"));
-
     }
 
 
-    void checkIsGround()
+    private void checkIsGround()
     {
         isGround = charController.isGrounded;
         if (isGround && playerVelocity.y < 0)
@@ -72,8 +71,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void tryMove()
+    private  void tryMove()
     {
+        
+
         Transform camTransfrom = Camera.main.GetComponent<Transform>();
 
         Vector3 look = camTransfrom.forward.normalized;
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
         float movement = Mathf.Abs(v) + Mathf.Abs(h);
         if (movement > 0)
         {
+
             charController.Move(move);
             gameObject.transform.forward = move.normalized;
 
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void tryJump()
+    private void tryJump()
     {
         // Changes the height position of the player..
         if (Input.GetButtonDown("Jump") && isGround)
@@ -108,9 +110,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void applyGravity()
+    private void applyGravity()
     {
         playerVelocity.y += GRAVITY_VALUE * Time.deltaTime;
         charController.Move(playerVelocity * Time.deltaTime);
     }
+
+    private bool isCurrentAnimationCancelable() {
+        AnimatorStateInfo currentAnimState = animator.GetCurrentAnimatorStateInfo(0);
+        return !currentAnimState.IsName("jump"); }
+
+
 }
