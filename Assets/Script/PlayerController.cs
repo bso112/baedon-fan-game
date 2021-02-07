@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
         tryJump();
 
-        updateValue();
+        applyGravity();
     }
 
     void tryPlayAniamtion()
@@ -75,14 +74,28 @@ public class PlayerController : MonoBehaviour
 
     void tryMove()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        charController.Move(move * Time.deltaTime * playerSpeed);
+        Transform camTransfrom = Camera.main.GetComponent<Transform>();
 
-        if (move != Vector3.zero)
+        Vector3 look = camTransfrom.forward.normalized;
+        look.y = 0;
+        look.Normalize();
+
+        Vector3 right = new Vector3(look.z, 0, -look.x);
+
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+        Vector3 move = (look * v * playerSpeed * Time.deltaTime) +
+                        (right * h * playerSpeed * Time.deltaTime);
+
+        float movement = Mathf.Abs(v) + Mathf.Abs(h);
+        if (movement > 0)
         {
-            gameObject.transform.forward = move;
-            animator.SetFloat("speed", move.magnitude);
+            charController.Move(move);
+            gameObject.transform.forward = move.normalized;
+
         }
+
+        animator.SetFloat("speed", movement);
 
     }
 
@@ -95,7 +108,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void updateValue()
+    void applyGravity()
     {
         playerVelocity.y += GRAVITY_VALUE * Time.deltaTime;
         charController.Move(playerVelocity * Time.deltaTime);
