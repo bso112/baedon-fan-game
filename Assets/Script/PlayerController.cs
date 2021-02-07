@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         currentComboAcc += Time.deltaTime;
 
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetMouseButtonDown(0))
         {
 
             if (currentComboAcc < comboTolerance)
@@ -78,11 +78,12 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         charController.Move(move * Time.deltaTime * playerSpeed);
 
-/*        if (move != Vector3.zero)
+        if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
+            animator.SetFloat("speed", move.magnitude);
         }
-*/
+
     }
 
     void tryJump()
