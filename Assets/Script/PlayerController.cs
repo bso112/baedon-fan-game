@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
-    private const float comboTolerance = 0.5F;
+    public float comboTolerance = 0.5F;
     private const float GRAVITY_VALUE = -9.81f;
 
     private CharacterController charController;
