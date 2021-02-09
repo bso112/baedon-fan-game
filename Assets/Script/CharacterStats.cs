@@ -13,7 +13,6 @@ public class CharacterStats : MonoBehaviour
 
     public void ManaBarrierActivate()
     {
-
     }
 
 

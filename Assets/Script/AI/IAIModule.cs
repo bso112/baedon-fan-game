@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum AI_MODULE_TYPE { SHIPDONKKUM, END }
+public enum AI_MODULE_TYPE { CHEWEDGUM, END }
 
 public interface IAIModule
 {

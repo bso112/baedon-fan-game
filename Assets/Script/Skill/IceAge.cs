@@ -2,16 +2,16 @@
 {
     public void activate(CharacterStats target)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public string getName()
     {
-        throw new System.NotImplementedException();
+        return "IceAge";
     }
 
     public void inactivate(CharacterStats target)
     {
-        throw new System.NotImplementedException();
+
     }
 }

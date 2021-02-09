@@ -3,17 +3,16 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    public AI_MODULE_TYPE moduleType = AI_MODULE_TYPE.END;
+    public AI_MODULE_TYPE moduleType;
     public CharacterStats target;
     public float recogRange = 0F;
 
     //배틀에 진입하는 조건을 외부에서 설정해준다.
-    [HideInInspector]
     public bool inBattle = false;
 
 
     private IAIModule aiModule;
-   
+
 
     private void OnDrawGizmos()
     {
@@ -26,6 +25,7 @@ public class AIController : MonoBehaviour
     void Start()
     {
         aiModule = createAIModule();
+
     }
 
     // Update is called once per frame
@@ -52,8 +52,8 @@ public class AIController : MonoBehaviour
     {
         switch (moduleType)
         {
-            case AI_MODULE_TYPE.SHIPDONKKUM:
-                return new ShipdonkkumModule();
+            case AI_MODULE_TYPE.CHEWEDGUM:
+                return new ChewedGumModule();
 
         }
 

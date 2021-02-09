@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 
-public class ShipdonkkumModule : IAIModule
+public class ChewedGumModule : IAIModule
 {
 
     Dictionary<string, Skill> skills = new Dictionary<string, Skill>();
 
-    public ShipdonkkumModule()
+    public ChewedGumModule()
     {
         addSkill(new ManaShield());
         addSkill(new Explosion());
