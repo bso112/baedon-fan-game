@@ -4,9 +4,16 @@ using UnityEngine;
 public class AIController : MonoBehaviour
 {
     public AI_MODULE_TYPE moduleType = AI_MODULE_TYPE.END;
-    public GameObject target;
+    public CharacterStats target;
     public float recogRange = 0F;
-    private AIModule aiModule;
+
+    //배틀에 진입하는 조건을 외부에서 설정해준다.
+    [HideInInspector]
+    public bool inBattle = false;
+
+
+    private IAIModule aiModule;
+   
 
     private void OnDrawGizmos()
     {
@@ -24,7 +31,7 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTargetInRange(recogRange))
+        if (isInBattle())
         {
             if (target == null)
             {
@@ -41,7 +48,7 @@ public class AIController : MonoBehaviour
 
 
 
-    private AIModule createAIModule()
+    private IAIModule createAIModule()
     {
         switch (moduleType)
         {
@@ -51,6 +58,11 @@ public class AIController : MonoBehaviour
         }
 
         throw new Exception("Invaild AIModule");
+    }
+
+    private bool isInBattle()
+    {
+        return inBattle && isTargetInRange(recogRange);
     }
 
     private bool isTargetInRange(float range)
