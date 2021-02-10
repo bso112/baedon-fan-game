@@ -1,17 +1,17 @@
 ﻿
-public class Explosion : ISkill
+public class Explosion : BaseSkill
 {
-    public void activate(CharacterStats target)
-    {
-
-    }
-
-    public string getName()
+    public override string getName()
     {
         return "Explosion";
     }
 
-    public void inactivate(CharacterStats target)
+    protected override void onActivate(CharacterStats target)
+    {
+
+    }
+
+    protected override void onInactivate(CharacterStats target)
     {
 
     }

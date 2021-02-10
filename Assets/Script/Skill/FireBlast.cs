@@ -1,17 +1,17 @@
 ﻿
-public class FireBlast : ISkill
+public class FireBlast : BaseSkill
 {
-    public void activate(CharacterStats target)
-    {
-
-    }
-
-    public string getName()
+    public override string getName()
     {
         return "FireBlast";
     }
 
-    public void inactivate(CharacterStats target)
+    protected override void onActivate(CharacterStats target)
+    {
+
+    }
+
+    protected override void onInactivate(CharacterStats target)
     {
 
     }

@@ -2,23 +2,29 @@
 using UnityEngine;
 using System;
 
-public class ManaShield : BaseSkill
+public sealed class ManaShield : BaseSkill
 {
-
-    public override void activate(CharacterStats target)
-    {
-        target.ManaBarrierActivate();
-        GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false);
-    }
+    UnityEngine.Object manaShield;
 
     public override string getName()
     {
         return "ManaShield";
     }
 
-    public override void inactivate(CharacterStats target)
+
+    protected override void onActivate(CharacterStats target)
     {
-        target.ManaBarrierInactivate();
+        target.manaBarrierActivate();
+        manaShield = GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false);
+    }
+
+
+    protected override void onInactivate(CharacterStats target)
+    {
+        target.manaBarrierInactivate();
+        if(manaShield != null)
+            GameObject.Destroy(manaShield);
+
     }
 
  

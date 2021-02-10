@@ -28,12 +28,14 @@ public class AIController : MonoBehaviour
     {
         aiModule = createAIModule();
         self = GetComponent<CharacterStats>();
+        inBattle = true;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (isInBattle())
         {
             if (target == null)
@@ -50,6 +52,7 @@ public class AIController : MonoBehaviour
         
 
         aiModule.idle();
+        aiModule.update();
     }
 
 

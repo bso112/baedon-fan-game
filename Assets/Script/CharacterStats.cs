@@ -10,14 +10,24 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     FloatStat mp;
 
+    private bool isManaBarriered = false;
 
-    public void ManaBarrierActivate()
+    public void manaBarrierActivate()
     {
+        isManaBarriered = true;
     }
 
-
-    public void ManaBarrierInactivate()
+    public void manaBarrierInactivate()
     {
-
+        isManaBarriered = false;
     }
+
+    public void takeDamage(float amount)
+    {
+        if (isManaBarriered)
+            mp -= amount;
+        else
+            hp -= amount;
+    }
+   
 }

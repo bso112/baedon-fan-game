@@ -9,8 +9,19 @@ public abstract class BaseModule : IAIModule
     public abstract void chase(CharacterStats target, CharacterStats self);
     public abstract void fight(CharacterStats target, CharacterStats self);
     public abstract void idle();
-    public abstract void update();
+
+    public void update()
+    {
+        foreach (var skill in skills)
+        {
+            skill.Value.update();
+        }
+    }
+
+
+
     protected abstract bool isSkillCanActivate(ISkill skill);
+
 
 
     protected void addSkill(ISkill skill)
@@ -23,6 +34,8 @@ public abstract class BaseModule : IAIModule
         if (isSkillCanActivate(skills[skill]))
             skills[skill].activate(target);
     }
+
+
 
 
 }

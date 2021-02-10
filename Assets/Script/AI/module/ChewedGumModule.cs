@@ -22,6 +22,7 @@ public class ChewedGumModule : BaseModule
     public override void fight(CharacterStats target, CharacterStats self)
     {
         activateSkill("ManaShield", self);
+
     }
 
     public override void idle()
@@ -29,10 +30,6 @@ public class ChewedGumModule : BaseModule
      
     }
 
-    public override void update()
-    {
-        
-    }
 
     protected override bool isSkillCanActivate(ISkill skill)
     {
