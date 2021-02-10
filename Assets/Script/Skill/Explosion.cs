@@ -1,5 +1,5 @@
 ﻿
-public class Explosion : Skill
+public class Explosion : ISkill
 {
     public void activate(CharacterStats target)
     {

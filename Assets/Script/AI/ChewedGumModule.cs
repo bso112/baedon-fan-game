@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-
-public class ChewedGumModule : IAIModule
+public class ChewedGumModule : BaseModule
 {
-
-    Dictionary<string, Skill> skills = new Dictionary<string, Skill>();
-
+   
     public ChewedGumModule()
     {
         addSkill(new ManaShield());
@@ -16,45 +14,27 @@ public class ChewedGumModule : IAIModule
         
     }
 
-
-    public void idle()
+    public override void chase(CharacterStats target, CharacterStats self)
     {
         
     }
 
-
-    public void chase(CharacterStats target)
+    public override void fight(CharacterStats target, CharacterStats self)
     {
-        if (target == null) return;
-
+        activateSkill("ManaShield", self);
     }
 
-
-    public void fight(CharacterStats target)
+    public override void idle()
     {
-        if (target == null) return;
-
-        activateSkill("ManaShield", target);
-
-
-
+     
     }
 
-    public void update()
+    public override void update()
     {
-
-    }
-    
-
-
-    private void activateSkill(string skill, CharacterStats target)
-    {
-        if (isSkillCanActivate(skills[skill]))
-            skills[skill].activate(target);
+        
     }
 
-
-    private bool isSkillCanActivate(Skill skill)
+    protected override bool isSkillCanActivate(ISkill skill)
     {
         if (null == skill)
         {
@@ -70,11 +50,5 @@ public class ChewedGumModule : IAIModule
         }
 
         return false;
-
-    }
-
-    private void addSkill(Skill skill)
-    {
-        skills.Add(skill.getName(), skill);
     }
 }

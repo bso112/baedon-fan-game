@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface Skill
+public interface ISkill
 {
     string getName();
     void activate(CharacterStats target);

@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterStats))]
 public class AIController : MonoBehaviour
 {
     public AI_MODULE_TYPE moduleType;
     public CharacterStats target;
+    public CharacterStats self;
     public float recogRange = 0F;
 
     //배틀에 진입하는 조건을 외부에서 설정해준다.
@@ -25,6 +27,7 @@ public class AIController : MonoBehaviour
     void Start()
     {
         aiModule = createAIModule();
+        self = GetComponent<CharacterStats>();
 
     }
 
@@ -39,9 +42,12 @@ public class AIController : MonoBehaviour
                 return;
             }
 
-            aiModule.fight(target);
+            aiModule.fight(target, self);
+            inBattle = false;
             return;
         }
+
+        
 
         aiModule.idle();
     }

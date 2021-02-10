@@ -1,4 +1,4 @@
-﻿public class IceAge : Skill
+﻿public class IceAge : ISkill
 {
     public void activate(CharacterStats target)
     {

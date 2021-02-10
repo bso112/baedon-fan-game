@@ -1,5 +1,5 @@
 ﻿
-public class FireBlast : Skill
+public class FireBlast : ISkill
 {
     public void activate(CharacterStats target)
     {

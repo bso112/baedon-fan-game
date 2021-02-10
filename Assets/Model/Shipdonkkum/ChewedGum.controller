@@ -84,12 +84,12 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -9199858309668162207}
-    second:
-    - {fileID: 5745900201329839257}
   - first: {fileID: -4903276336759629003}
     second:
     - {fileID: 2620823196091762489}
+  - first: {fileID: -9199858309668162207}
+    second:
+    - {fileID: 5745900201329839257}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 140, y: 130, z: 0}
@@ -283,7 +283,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: shipdonkkum
+  m_Name: ChewedGum
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: speed
@@ -291,13 +291,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: canAttack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
