@@ -1,6 +1,15 @@
 ﻿
 public class FireBlast : BaseSkill
 {
+
+    public FireBlast()
+   : base(8F)
+    {
+
+    }
+
+
+
     public override string getName()
     {
         return "FireBlast";

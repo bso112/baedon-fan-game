@@ -1,49 +1,79 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using ExtensionMethods;
 using System;
+using UnityEngine;
 
 
 public abstract class BaseSkill : ISkill
 {
-    private readonly float cooldown = 8F;
-    public float currentCooldown { get; private set; } = float.MaxValue;
+    //스킬의 대상
+    private CharacterStats target;
+    //쿨타임 (지속시간 포함)
+    private readonly float cooldown;
+    //지속시간
+    private readonly float duration;
+
+    private float activateTimeStamp = 0F;
 
     public abstract string getName();
 
+    public BaseSkill(float cooldown, float duration = 0F)
+    {
+        this.cooldown = cooldown + duration;
+        this.duration = duration;
+    }
+
+    public void update()
+    {
+        if (isDurationOver() && target != null)
+            Inactivate(target);
+    }
+
     public void activate(CharacterStats target)
     {
-        if (cooldown > currentCooldown)
-            return;
+        target.ifNotNull(it =>
+        {
 
-        onActivate(target);
+            if (!canActivate())
+                return;
 
-        currentCooldown = 0;
+            Inactivate(target);
+
+            onActivate(it);
+
+            this.target = it;
+            //canActivate 조건에서 Time.time이 0이면 안됨.
+            activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
+        });
     }
 
 
     public void Inactivate(CharacterStats target)
     {
+        target.ifNotNull(it =>
+        {
+            onInactivate(it);
+            this.target = null;
 
-        onInactivate(target);
-
-        currentCooldown = 0;
+        });
     }
 
-    public void update()
+    protected bool canActivate()
     {
-        updateCurrentCooldown();
+        if(Time.time < cooldown && activateTimeStamp == 0)
+            return true;
 
-        onUpdate();
+        return Time.time > activateTimeStamp + cooldown;
+    }
 
+
+    protected bool isDurationOver()
+    { 
+        return Time.time > activateTimeStamp + duration;
     }
 
 
     protected abstract void onActivate(CharacterStats target);
     protected abstract void onInactivate(CharacterStats target);
 
-    protected void onUpdate() { }
 
-    protected void updateCurrentCooldown() { currentCooldown += Time.deltaTime; }
-
- 
 }

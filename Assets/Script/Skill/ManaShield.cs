@@ -6,6 +6,14 @@ public sealed class ManaShield : BaseSkill
 {
     UnityEngine.Object manaShield;
 
+    //쿨타임 정해주기
+    public ManaShield()
+       : base(8F, 10F)
+    {
+
+    }
+
+
     public override string getName()
     {
         return "ManaShield";

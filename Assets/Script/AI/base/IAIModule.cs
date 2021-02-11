@@ -9,7 +9,6 @@ public interface IAIModule
     void fight(CharacterStats target, CharacterStats self);
 
     void update();
-
 }
 
 

@@ -45,14 +45,13 @@ public class AIController : MonoBehaviour
             }
 
             aiModule.fight(target, self);
-            inBattle = false;
+
             return;
         }
 
-        
 
-        aiModule.idle();
         aiModule.update();
+        aiModule.idle();
     }
 
 

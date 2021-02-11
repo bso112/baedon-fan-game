@@ -1,5 +1,14 @@
 ﻿public class IceAge : BaseSkill
 {
+
+    public IceAge()
+   : base(8F)
+    {
+
+    }
+
+
+
     public override string getName()
     {
         return "IceAge";

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using ExtensionMethods;
 
 public class ChewedGumModule : BaseModule
 {
+  
    
     public ChewedGumModule()
     {
@@ -21,6 +23,7 @@ public class ChewedGumModule : BaseModule
 
     public override void fight(CharacterStats target, CharacterStats self)
     {
+
         activateSkill("ManaShield", self);
 
     }
@@ -33,19 +36,18 @@ public class ChewedGumModule : BaseModule
 
     protected override bool isSkillCanActivate(ISkill skill)
     {
-        if (null == skill)
+        bool result = false;
+        skill.ifNotNull(it =>
         {
-            Debug.LogWarning("skill is null");
-            return false;
-        }
+            switch (skill.getName())
+            {
+                case "ManaShield":
+                    result = true;
+                    break;
+            }
+        });
 
 
-        switch (skill.getName())
-        {
-            case "ManaShield":
-                return true;
-        }
-
-        return false;
+        return result;
     }
 }
