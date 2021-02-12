@@ -24,6 +24,7 @@ public class CharacterStats : MonoBehaviour
 
     public void takeDamage(float amount)
     {
+        Debug.Log(gameObject.name + "got " + amount + "of damage");
         if (isManaBarriered)
             mp -= amount;
         else

@@ -6,9 +6,7 @@ public class PlayerController : MonoBehaviour
     //0.5초 안에 공격하면 콤보를 이어나갈 수 있다.
     public float comboTolerance = 0.5F;
     public float rotateSpeed = 200F;
-
-
-    private readonly float playerSpeed = 2F;
+    public readonly float playerSpeed = 2F;
     private float currentPlayerSpeed = 2F;
 
     private const float GRAVITY_VALUE = -9.81f;
@@ -70,6 +68,7 @@ public class PlayerController : MonoBehaviour
     public void onRollEnd()
     {
         currentPlayerSpeed = playerSpeed;
+        Debug.Log("rollend");
     }
 
     private void checkIsGround()
@@ -101,6 +100,7 @@ public class PlayerController : MonoBehaviour
         float movement = Mathf.Abs(v) + Mathf.Abs(h);
         if (movement > 0)
         {
+
             charController.Move(move);
 
             transform.rotation = Quaternion.RotateTowards
@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
                 Quaternion.LookRotation(move.normalized),
                 rotateSpeed * Time.deltaTime
                 );
+
         }
 
         animator.SetFloat("speed", movement);

@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections;
 public class FireBlast : BaseSkill
 {
 
@@ -15,8 +15,9 @@ public class FireBlast : BaseSkill
         return "FireBlast";
     }
 
-    protected override void onActivate(CharacterStats target)
+    protected override IEnumerator onActivate(CharacterStats target)
     {
+        return null;
 
     }
 

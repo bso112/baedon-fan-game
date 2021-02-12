@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections;
 public class Explosion : BaseSkill
 {
    public Explosion()
@@ -15,9 +15,9 @@ public class Explosion : BaseSkill
         return "Explosion";
     }
 
-    protected override void onActivate(CharacterStats target)
+    protected override IEnumerator onActivate(CharacterStats target)
     {
-
+        return null;
     }
 
     protected override void onInactivate(CharacterStats target)

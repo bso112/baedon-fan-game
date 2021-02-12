@@ -77,6 +77,9 @@ namespace UnityEngine.Rendering.PostProcessing
         }
     }
 
+#if UNITY_2017_1_OR_NEWER
+    [UnityEngine.Scripting.Preserve]
+#endif
     // TODO: Doesn't play nice with alpha propagation, see if it can be fixed without killing performances
     internal sealed class DepthOfFieldRenderer : PostProcessEffectRenderer<DepthOfField>
     {
@@ -161,7 +164,9 @@ namespace UnityEngine.Rendering.PostProcessing
 
         public override void Render(PostProcessRenderContext context)
         {
-            var colorFormat = RenderTextureFormat.DefaultHDR;
+            // The coc is stored in alpha so we need a 4 channels target. Note that using ARGB32
+            // will result in a very weak near-blur.
+            var colorFormat = context.camera.allowHDR ? RenderTextureFormat.ARGBHalf : RenderTextureFormat.ARGB32;
             var cocFormat = SelectFormat(RenderTextureFormat.R8, RenderTextureFormat.RHalf);
 
             // Avoid using R8 on OSX with Metal. #896121, https://goo.gl/MgKqu6

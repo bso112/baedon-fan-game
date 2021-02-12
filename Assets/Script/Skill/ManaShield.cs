@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-using System;
+using System.Collections;
 
 public sealed class ManaShield : BaseSkill
 {
@@ -20,10 +20,11 @@ public sealed class ManaShield : BaseSkill
     }
 
 
-    protected override void onActivate(CharacterStats target)
+    protected override IEnumerator  onActivate(CharacterStats target)
     {
         target.manaBarrierActivate();
         manaShield = GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false);
+        return null;
     }
 
 

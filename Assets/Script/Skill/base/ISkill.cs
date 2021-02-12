@@ -6,6 +6,7 @@
     /// </summary>
     /// <param name="target"></param>
     void activate(CharacterStats target);
+
     void Inactivate(CharacterStats target);
 
     void update();

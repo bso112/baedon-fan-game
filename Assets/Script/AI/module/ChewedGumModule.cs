@@ -25,8 +25,8 @@ public class ChewedGumModule : BaseModule
     public override void fight(CharacterStats target, CharacterStats self)
     {
 
-        activateSkill("ManaShield", self);
-        activateSkill("Thunder", target);
+       // activateSkill("ManaShield", self);
+        activateSkill("IceAge", target);
 
     }
 
@@ -38,21 +38,6 @@ public class ChewedGumModule : BaseModule
 
     protected override bool isSkillCanActivate(ISkill skill)
     {
-        bool result = false;
-        skill.ifNotNull(it =>
-        {
-            switch (skill.getName())
-            {
-                case "ManaShield":
-                    result = true;
-                    break;
-                case "Thunder":
-                    result = true;
-                    break;
-            }
-        });
-
-
-        return result;
+        return true;
     }
 }
