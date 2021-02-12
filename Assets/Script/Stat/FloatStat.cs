@@ -12,6 +12,11 @@ public class FloatStat : Stat<float>
 
     public static FloatStat operator -(FloatStat stat, float amount)
     {
-        return new FloatStat(stat.max, Mathf.Clamp(stat.current ,0, stat.max));
+        return new FloatStat(stat.max, Mathf.Clamp(stat.current - amount ,0, stat.max));
+    }
+
+    public static FloatStat operator *(FloatStat stat, float amount)
+    {
+        return new FloatStat(stat.max, Mathf.Clamp(stat.current * amount, 0, stat.max));
     }
 }
