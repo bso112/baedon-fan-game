@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using ExtensionMethods;
 
 [RequireComponent(typeof(CharacterStats))]
 public class AIController : MonoBehaviour
@@ -38,13 +39,10 @@ public class AIController : MonoBehaviour
 
         if (isInBattle())
         {
-            if (target == null)
+            target.ifNotNull(it =>
             {
-                Debug.LogWarning(name + "'s target is null");
-                return;
-            }
-
-            aiModule.fight(target, self);
+                aiModule.fight(it, self);
+            });
 
             return;
         }

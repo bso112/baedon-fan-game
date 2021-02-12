@@ -2,7 +2,7 @@
 {
 
     public IceAge()
-   : base(8F)
+   : base(8F, 5F)
     {
 
     }
@@ -16,7 +16,7 @@
 
     protected override void onActivate(CharacterStats target)
     {
-
+         
     }
 
     protected override void onInactivate(CharacterStats target)

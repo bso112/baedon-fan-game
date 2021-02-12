@@ -13,6 +13,7 @@ public class ChewedGumModule : BaseModule
         addSkill(new Explosion());
         addSkill(new FireBlast());
         addSkill(new IceAge());
+        addSkill(new Thunder());
         
     }
 
@@ -25,6 +26,7 @@ public class ChewedGumModule : BaseModule
     {
 
         activateSkill("ManaShield", self);
+        activateSkill("Thunder", target);
 
     }
 
@@ -42,6 +44,9 @@ public class ChewedGumModule : BaseModule
             switch (skill.getName())
             {
                 case "ManaShield":
+                    result = true;
+                    break;
+                case "Thunder":
                     result = true;
                     break;
             }

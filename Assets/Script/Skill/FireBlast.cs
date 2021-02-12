@@ -3,7 +3,7 @@ public class FireBlast : BaseSkill
 {
 
     public FireBlast()
-   : base(8F)
+   : base(8F, 5F)
     {
 
     }
