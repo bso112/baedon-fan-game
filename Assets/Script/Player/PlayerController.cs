@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
         tryMove();
 
-        tryJump();
+        tryRoll();
 
         applyGravity();
     }
@@ -101,12 +101,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void tryJump()
+    private void tryRoll()
     {
-        // Changes the height position of the player..
         if (Input.GetButtonDown("Jump") && isGround)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * GRAVITY_VALUE);
+            animator.SetTrigger("roll");
+            
         }
     }
 

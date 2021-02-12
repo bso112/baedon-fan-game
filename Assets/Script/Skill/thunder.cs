@@ -19,7 +19,7 @@ public class Thunder : BaseSkill
 
     protected override void onActivate(CharacterStats target)
     {
-        GameObject toInstantiate = Resources.Load("ParticleSystem/Thunder") as GameObject;
+        GameObject toInstantiate = Resources.Load("ParticleSystem/Lightning") as GameObject;
         thunder = GameObject.Instantiate(toInstantiate, target.transform.position + new Vector3(0, 20F, 0), toInstantiate.transform.rotation);
     }
 
