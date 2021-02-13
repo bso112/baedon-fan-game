@@ -17,17 +17,6 @@ public abstract class BaseAIModule
     private float activateSkillTimeStamp = 0F;
 
 
-    public bool activateSkill(string skill, CharacterStats target)
-    {
-        if (isSkillCanActivate(skills[skill]))
-        {
-            skills[skill].activate(target);
-            return true;
-        }
-
-        return false;
-    }
-
     public void update()
     {
         foreach (var skill in skills)
@@ -39,11 +28,7 @@ public abstract class BaseAIModule
     }
 
 
-    public abstract void constructBehaviourTree(CharacterStats target);
-
-
-    protected abstract bool isSkillCanActivate(BaseSkill skill);
-
+    public abstract void constructBehaviourTree(CharacterStats target, CharacterStats self, float recogRange);
 
 
     protected void addSkill(BaseSkill skill)

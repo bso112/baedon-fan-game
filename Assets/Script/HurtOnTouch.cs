@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using ExtensionMethods;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class HurtOnTouch : MonoBehaviour
@@ -10,14 +7,12 @@ public class HurtOnTouch : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("coll");
         CharacterStats stats = other.gameObject.GetComponent<CharacterStats>();
-        stats.ifNotNull(it =>
-        {
-            it.takeDamage(damageOnTouchEnter);
+        if (stats)
+            stats.takeDamage(damageOnTouchEnter);
 
-        });
+
     }
-  
+
 
 }

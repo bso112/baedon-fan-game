@@ -39,8 +39,10 @@ public abstract class BaseSkill
     /// 쿨타임이 끝나면 스킬을 발동한다.
     /// </summary>
     /// <param name="target"></param>
-    public void activate(CharacterStats target)
+    public bool activate(CharacterStats target)
     {
+        bool result = false;
+
         target.ifNotNull(it =>
         {
 
@@ -60,7 +62,10 @@ public abstract class BaseSkill
             //스킬 활성화
             it.StartCoroutine(onActivate(target));
 
+            result = true;
         });
+
+        return result;
     }
 
 

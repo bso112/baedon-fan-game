@@ -16,18 +16,20 @@ public class ChewedGumModule : BaseAIModule
         
     }
 
-    public override void constructBehaviourTree(CharacterStats target)
+    public override void constructBehaviourTree(CharacterStats target, CharacterStats self, float recogRange)
     {
 
-        Node n = new TryManaShieldActivate(this, target);
-        topNode = new Selector(new List<Node> { n });
+        Node tryManaShieldActivate = new TrySkillActivate(this, self, skills["ManaShield"]);
+
+        Node isEnemyClose = new IsEnemyClose(self.transform.position, target.transform.position, recogRange);
+        Node activateClosedSkill = new ActivateSkills(target, new List<BaseSkill> { skills["Explosion"], skills["FireBlast"] }, 1F);
+        Node tryClosedAttack = new Sequence(new List<Node>{ isEnemyClose, activateClosedSkill });
+
+        Node activateRangedSkill = new ActivateSkills (target,new List<BaseSkill> { skills["IceAge"], skills["Thunder"] },3F);
+
+        Node FightNode = new Selector(new List<Node> { tryManaShieldActivate, tryClosedAttack, activateRangedSkill });
+        topNode = new Selector(new List<Node> { FightNode  });
 
     }
 
-
-
-    protected override bool isSkillCanActivate(BaseSkill skill)
-    {
-        return true;
-    }
 }

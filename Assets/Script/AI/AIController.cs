@@ -2,13 +2,17 @@
 using UnityEngine;
 using ExtensionMethods;
 
+
+
+
 [RequireComponent(typeof(CharacterStats))]
 public class AIController : MonoBehaviour
 {
     public AI_MODULE_TYPE moduleType;
     public CharacterStats target;
     public CharacterStats self;
-    public float recogRange = 0F;
+    //여기 범위까지는 근접공격
+    public float closeAttackRange = 0F;
 
     //배틀에 진입하는 조건을 외부에서 설정해준다.
     public bool inBattle = false;
@@ -20,7 +24,7 @@ public class AIController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, recogRange);
+        Gizmos.DrawWireSphere(transform.position, closeAttackRange);
     }
 
 
@@ -28,8 +32,8 @@ public class AIController : MonoBehaviour
     void Start()
     {
         aiModule = createAIModule();
-        aiModule.constructBehaviourTree(target, self);
         self = GetComponent<CharacterStats>();
+        aiModule.constructBehaviourTree(target, self, closeAttackRange);
 
     }
 
@@ -54,15 +58,4 @@ public class AIController : MonoBehaviour
     }
 
 
-
-    private bool isTargetInRange(float range)
-    {
-        if (range == 0)
-        {
-            Debug.LogWarning(name + "'s recogRange is 0");
-            return false;
-        }
-
-        return (target.GetComponent<Transform>().position - GetComponent<Transform>().position).magnitude <= range;
-    }
 }
