@@ -7,16 +7,13 @@ using System.Collections;
 public abstract class BaseSkill : ISkill
 {
     //스킬의 대상
-    private CharacterStats target;
+    protected CharacterStats target;
     //쿨타임 (지속시간 포함)
-    private readonly float cooldown;
+    protected readonly float cooldown;
     //지속시간
-    private readonly float duration;
+    protected readonly float duration;
     //스킬을 사용한 시점
-    private float activateTimeStamp = 0F;
-
-    //스킬범위
-    protected float range = 1F;
+    protected float activateTimeStamp = 0F;
 
     public abstract string getName();
 
@@ -44,15 +41,17 @@ public abstract class BaseSkill : ISkill
 
             if (!canActivate())
                 return;
-         
+
+            Debug.Log("activate skill : " + getName());
+
+            this.target = it;
+            //canActivate 조건에서 Time.time이 0이면 안됨.
+            activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
 
             Inactivate(target);
 
             it.StartCoroutine(onActivate(target));
 
-            this.target = it;
-            //canActivate 조건에서 Time.time이 0이면 안됨.
-            activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
         });
     }
 
@@ -81,8 +80,12 @@ public abstract class BaseSkill : ISkill
         return Time.time > activateTimeStamp + duration;
     }
 
-    //스킬 발동전 범위 보여주기
-    protected void visualizeDangerArea(Vector3 position)
+    /// <summary>
+    /// 스킬 발동 전 범위 보여주기
+    /// </summary>
+    /// <param name="position">스킬 발동 위치</param>
+    /// <param name="range">스킬 범위</param>
+    protected void visualizeDangerArea(Vector3 position, float range)
     {
         position.y = 0;
         GameObject area = GameObject.Instantiate(Resources.Load("Prefabs/WarnArea"), position, Quaternion.identity) as GameObject;

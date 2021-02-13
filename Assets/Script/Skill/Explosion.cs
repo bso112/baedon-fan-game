@@ -17,7 +17,7 @@ public class Explosion : BaseSkill
 
     protected override IEnumerator onActivate(CharacterStats target)
     {
-        return null;
+        yield return null;
     }
 
     protected override void onInactivate(CharacterStats target)

@@ -24,7 +24,7 @@ public sealed class ManaShield : BaseSkill
     {
         target.manaBarrierActivate();
         manaShield = GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false);
-        return null;
+        yield return null;
     }
 
 

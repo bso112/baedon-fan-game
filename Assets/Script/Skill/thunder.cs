@@ -1,13 +1,11 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Thunder : BaseSkill
 {
-    UnityEngine.Object thunder;
 
     public Thunder()
-    : base(8F, 5F)
+    : base(2F)
     {
 
     }
@@ -20,14 +18,13 @@ public class Thunder : BaseSkill
 
     protected override IEnumerator onActivate(CharacterStats target)
     {
-        GameObject toInstantiate = Resources.Load("ParticleSystem/Lightning") as GameObject;
-        thunder = GameObject.Instantiate(toInstantiate, target.transform.position + new Vector3(0, 20F, 0), toInstantiate.transform.rotation);
-        return null;
+        GameObject toInstantiate = Resources.Load("Prefabs/Thunder") as GameObject;
+        GameObject.Instantiate(toInstantiate, target.transform.position + new Vector3(0, 20F, 0), toInstantiate.transform.rotation);
+        yield return null;
     }
 
     protected override void onInactivate(CharacterStats target)
     {
-        if (thunder != null)
-            GameObject.Destroy(thunder);
+
     }
 }

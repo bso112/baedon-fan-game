@@ -25,8 +25,9 @@ public class ChewedGumModule : BaseModule
     public override void fight(CharacterStats target, CharacterStats self)
     {
 
-       // activateSkill("ManaShield", self);
-        activateSkill("IceAge", target);
+        // activateSkill("ManaShield", self);
+        activateSkill("Thunder", target);
+        //activateSkill("IceAge", target);
 
     }
 

@@ -17,7 +17,7 @@ public class FireBlast : BaseSkill
 
     protected override IEnumerator onActivate(CharacterStats target)
     {
-        return null;
+        yield return null;
 
     }
 
