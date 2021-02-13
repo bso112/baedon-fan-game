@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System;
 using ExtensionMethods;
 
-public class ChewedGumModule : BaseModule
+public class ChewedGumModule : BaseAIModule
 {
-  
-   
+
     public ChewedGumModule()
     {
         addSkill(new ManaShield());
@@ -17,27 +16,17 @@ public class ChewedGumModule : BaseModule
         
     }
 
-    public override void chase(CharacterStats target, CharacterStats self)
-    {
-        
-    }
-
-    public override void fight(CharacterStats target, CharacterStats self)
+    public override void constructBehaviourTree(CharacterStats target)
     {
 
-        // activateSkill("ManaShield", self);
-        activateSkill("Thunder", target);
-        //activateSkill("IceAge", target);
+        Node n = new TryManaShieldActivate(this, target);
+        topNode = new Selector(new List<Node> { n });
 
     }
 
-    public override void idle()
-    {
-     
-    }
 
 
-    protected override bool isSkillCanActivate(ISkill skill)
+    protected override bool isSkillCanActivate(BaseSkill skill)
     {
         return true;
     }

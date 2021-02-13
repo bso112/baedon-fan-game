@@ -8,7 +8,7 @@ public sealed class ManaShield : BaseSkill
 
     //쿨타임 정해주기
     public ManaShield()
-       : base(8F, 10F)
+       : base(5F, 2F)
     {
 
     }

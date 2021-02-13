@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public abstract class BaseSkill : ISkill
+public abstract class BaseSkill
 {
     //스킬의 대상
     protected CharacterStats target;
@@ -30,10 +30,15 @@ public abstract class BaseSkill : ISkill
 
     public void update()
     {
+
         if (isDurationOver() && target != null)
             Inactivate(target);
     }
 
+    /// <summary>
+    /// 쿨타임이 끝나면 스킬을 발동한다.
+    /// </summary>
+    /// <param name="target"></param>
     public void activate(CharacterStats target)
     {
         target.ifNotNull(it =>
@@ -44,12 +49,15 @@ public abstract class BaseSkill : ISkill
 
             Debug.Log("activate skill : " + getName());
 
+            //이미 활성화 되있다면, 스킬 비활성화
+            Inactivate(target);
+
+            //타겟 설정
             this.target = it;
             //canActivate 조건에서 Time.time이 0이면 안됨.
             activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
 
-            Inactivate(target);
-
+            //스킬 활성화
             it.StartCoroutine(onActivate(target));
 
         });

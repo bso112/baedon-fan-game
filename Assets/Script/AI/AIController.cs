@@ -14,7 +14,7 @@ public class AIController : MonoBehaviour
     public bool inBattle = false;
 
 
-    private IAIModule aiModule;
+    private BaseAIModule aiModule;
 
 
     private void OnDrawGizmos()
@@ -28,33 +28,20 @@ public class AIController : MonoBehaviour
     void Start()
     {
         aiModule = createAIModule();
+        aiModule.constructBehaviourTree(target, self);
         self = GetComponent<CharacterStats>();
-        inBattle = true;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (isInBattle())
-        {
-            target.ifNotNull(it =>
-            {
-                aiModule.fight(it, self);
-            });
-
-            return;
-        }
-
-
         aiModule.update();
-        aiModule.idle();
     }
 
 
 
-    private IAIModule createAIModule()
+    private BaseAIModule createAIModule()
     {
         switch (moduleType)
         {
@@ -66,10 +53,7 @@ public class AIController : MonoBehaviour
         throw new Exception("Invaild AIModule");
     }
 
-    private bool isInBattle()
-    {
-        return inBattle && isTargetInRange(recogRange);
-    }
+
 
     private bool isTargetInRange(float range)
     {
