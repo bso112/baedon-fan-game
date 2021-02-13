@@ -25,7 +25,7 @@ public abstract class BaseSkill : ISkill
     /// </summary>
     /// <param name="cooldown">duration 이후 스킬을 쓰지 못하는 시간(초)</param>
     /// <param name="duration">스킬의 지속시간(초)</param>
-    public BaseSkill(float cooldown, float duration)
+    public BaseSkill(float cooldown, float duration = 0)
     {
         this.cooldown = cooldown + duration;
         this.duration = duration;
@@ -44,6 +44,7 @@ public abstract class BaseSkill : ISkill
 
             if (!canActivate())
                 return;
+         
 
             Inactivate(target);
 

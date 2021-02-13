@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
     public void onRollEnd()
     {
         currentPlayerSpeed = playerSpeed;
-        Debug.Log("rollend");
     }
 
     private void checkIsGround()

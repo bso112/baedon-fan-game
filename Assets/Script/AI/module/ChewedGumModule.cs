@@ -12,7 +12,7 @@ public class ChewedGumModule : BaseModule
         addSkill(new ManaShield());
         addSkill(new Explosion());
         addSkill(new FireBlast());
-        addSkill(new IceAge());
+        addSkill(new IceAge(3, 3));
         addSkill(new Thunder());
         
     }

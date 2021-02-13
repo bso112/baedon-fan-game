@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 [Serializable]
 public abstract class BaseModule : IAIModule
 {
@@ -27,8 +28,7 @@ public abstract class BaseModule : IAIModule
     protected void activateSkill(string skill, CharacterStats target)
     {
         if (isSkillCanActivate(skills[skill]))
-        {   
-
+        {
             skills[skill].activate(target);
         }
     }
