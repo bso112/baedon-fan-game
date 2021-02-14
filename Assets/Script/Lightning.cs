@@ -7,6 +7,7 @@ public class Lightning : MonoBehaviour
 
     public float range;
     public float damage;
+    public GameObject effectOnCollide;
 
     private List<ParticleCollisionEvent> collisionEvents;
     private ParticleSystem ps;
@@ -25,7 +26,9 @@ public class Lightning : MonoBehaviour
 
         foreach (var collision in collisionEvents)
         {
-          
+            if (effectOnCollide != null)
+                GameObject.Instantiate(effectOnCollide, collision.intersection, Quaternion.identity);
+
             Collider[] colliders = Physics.OverlapSphere(collision.intersection, range);
 
             foreach (var collider in colliders)
