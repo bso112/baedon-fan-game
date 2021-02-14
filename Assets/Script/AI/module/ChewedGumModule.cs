@@ -40,9 +40,9 @@ public sealed  class ChewedGumModule : BaseAIModule
         Node intervalNode = new Interval(5F);
 
         Node tryClosedSkill = new Sequence(new List<Node>{ isEnemyClose, activateClosedSkill });
-        Node tryActivateSkill = new Selector(new List<Node> { tryClosedSkill, activateRangedSkill });
+        Node tryActivateSkill = new Selector(new List<Node> { tryManaShieldActivate, tryClosedSkill, activateRangedSkill });
         Node tryAttack = new Sequence(new List<Node> { intervalNode , tryActivateSkill });
-        Node fight = new Selector(new List<Node> { tryManaShieldActivate, tryAttack , chase});
+        Node fight = new Selector(new List<Node> { tryAttack , chase});
         topNode = new Selector(new List<Node> { fight });
 
     }

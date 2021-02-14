@@ -14,7 +14,7 @@ public abstract class BaseSkill
     //지속시간
     protected readonly float duration;
     //스킬을 사용한 시점
-    protected float activateTimeStamp = 0F;
+    protected float activateTimeStamp = float.MinValue;
 
 
     public abstract string getName();
@@ -62,8 +62,8 @@ public abstract class BaseSkill
         this.self = self;
         this.target = target;
 
-        //canActivate 조건에서 Time.time이 0이면 안됨.
-        activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
+     
+        activateTimeStamp = Time.time;
 
         //스킬 활성화
         self.StartCoroutine(onActivate(self, target));
@@ -90,9 +90,6 @@ public abstract class BaseSkill
 
     protected bool canActivate()
     {
-        if (Time.time < cooldown && activateTimeStamp == 0)
-            return true;
-
         return Time.time > activateTimeStamp + cooldown;
     }
 

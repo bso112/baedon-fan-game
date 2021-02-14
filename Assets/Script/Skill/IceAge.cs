@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine;
 public class IceAge : BaseSkill
@@ -28,6 +29,8 @@ public class IceAge : BaseSkill
         self.GetComponent<Animator>().Play("ice_age");
 
         yield return new WaitForSeconds(2.0F);
+
+        GameObject.Instantiate(Resources.Load("Prefabs/IceAgeEffect"), self.transform.position + new Vector3(0F, 1F), Quaternion.identity);
 
         //duration 동안 1초 간격으로
         while (Time.time < activateTimeStamp + duration)

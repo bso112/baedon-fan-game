@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class Lightning : MonoBehaviour
 {
-    public GameObject debugSphere;
+
     public float range;
     public float damage;
 
@@ -25,12 +25,7 @@ public class Lightning : MonoBehaviour
 
         foreach (var collision in collisionEvents)
         {
-            if (debugSphere != null)
-            {
-                GameObject debugObj = GameObject.Instantiate(debugSphere, collision.intersection, Quaternion.identity);
-                debugObj.transform.localScale = new Vector3(range, range, range);
-            }
-
+          
             Collider[] colliders = Physics.OverlapSphere(collision.intersection, range);
 
             foreach (var collider in colliders)
