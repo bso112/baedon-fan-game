@@ -24,6 +24,11 @@ public class IceAge : BaseSkill
         if (self == null || target == null)
             yield break;
 
+
+        self.GetComponent<Animator>().Play("ice_age");
+
+        yield return new WaitForSeconds(2.0F);
+
         //duration 동안 1초 간격으로
         while (Time.time < activateTimeStamp + duration)
         {
@@ -41,6 +46,8 @@ public class IceAge : BaseSkill
             for (int i = 0; i < numOfIce; ++i)
                 GameObject.Instantiate(Resources.Load("Prefabs/Crystal"), positions[i], Quaternion.identity);
         }
+
+
 
     }
 

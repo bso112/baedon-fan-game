@@ -21,6 +21,11 @@ public class Thunder : BaseSkill
         if (self == null || target == null)
             yield break;
 
+
+        self.GetComponent<Animator>().Play("thunder");
+
+        yield return new WaitForSeconds(1.5F);
+
         GameObject toInstantiate = Resources.Load("Prefabs/Thunder") as GameObject;
         GameObject.Instantiate(toInstantiate, target.transform.position + new Vector3(0, 20F, 0), toInstantiate.transform.rotation);
     }

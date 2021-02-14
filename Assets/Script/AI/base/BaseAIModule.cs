@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public abstract class BaseAIModule : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +18,7 @@ public abstract class BaseAIModule : MonoBehaviour
     
     protected Dictionary<string, BaseSkill> skills = new Dictionary<string, BaseSkill>();
     protected NavMeshAgent navAgent;
+    protected Animator animator;
     protected Node topNode;
     protected CharacterStats self;
 
@@ -30,6 +32,7 @@ public abstract class BaseAIModule : MonoBehaviour
     {
         self = GetComponent<CharacterStats>();
         navAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     protected void update()

@@ -26,6 +26,7 @@ public sealed  class ChewedGumModule : BaseAIModule
     private void Update()
     {
         base.update();
+        animator.SetFloat("speed", navAgent.velocity.magnitude);
     }
 
 

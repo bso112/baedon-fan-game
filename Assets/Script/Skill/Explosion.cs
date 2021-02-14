@@ -22,11 +22,17 @@ public class Explosion : BaseSkill
         if (self == null || target == null)
             yield break;
 
+        self.GetComponent<Animator>().Play("explosion");
+
+        yield return new WaitForSeconds(1.3F);
+
         GameObject explosion = GameObject.Instantiate(Resources.Load("Prefabs/Explosion"), self.transform.position + new Vector3(0, 1F), Quaternion.identity) as GameObject;
 
         HurtOnTouch hurt = explosion.GetComponent<HurtOnTouch>();
         hurt.except = self;
         hurt.damageOnTouchEnter = damage;
+
+
     }
 
     protected override void onInactivate(CharacterStats self, CharacterStats target)

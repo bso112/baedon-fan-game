@@ -4,7 +4,7 @@ using System.Collections;
 
 public sealed class ManaShield : BaseSkill
 {
-    UnityEngine.Object manaShield;
+    GameObject manaShield;
 
     //쿨타임 정해주기
     public ManaShield()
@@ -25,8 +25,15 @@ public sealed class ManaShield : BaseSkill
         if (self == null || target == null)
             yield break;
 
+
+        self.GetComponent<Animator>().Play("mana_shield");
+
+        yield return new WaitForSeconds(0.5F);
+
         target.manaBarrierActivate();
-        manaShield = GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false);
+        manaShield = GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false) as GameObject;
+        manaShield.transform.localPosition = new Vector3(0F, 2.2F);
+        
     }
 
 

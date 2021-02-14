@@ -23,6 +23,10 @@ public class FireBlast : BaseSkill
 
         self.transform.LookAt(target.transform);
 
+        self.GetComponent<Animator>().Play("fire_blast");
+
+        yield return new WaitForSeconds(1F);
+
         GameObject fireblast = GameObject.Instantiate(Resources.Load("Prefabs/Fireblast"), self.transform, true) as GameObject;
         fireblast.transform.localPosition = new Vector3(0, 1F);
         fireblast.transform.localRotation = Quaternion.identity;
