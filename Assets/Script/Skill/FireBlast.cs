@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using UnityEngine;
 public class FireBlast : BaseSkill
 {
 
     public FireBlast()
-   : base(8F, 5F)
+   : base(6F)
     {
-
+        damage = 25F;
     }
 
 
@@ -15,13 +16,27 @@ public class FireBlast : BaseSkill
         return "FireBlast";
     }
 
-    protected override IEnumerator onActivate(CharacterStats target)
+    protected override IEnumerator onActivate(CharacterStats self, CharacterStats target)
     {
-        yield return null;
+        if (self == null ||  target == null)
+            yield break;
+
+        self.transform.LookAt(target.transform);
+
+        GameObject fireblast = GameObject.Instantiate(Resources.Load("Prefabs/Fireblast"), self.transform, true) as GameObject;
+        fireblast.transform.localPosition = new Vector3(0, 1F);
+        fireblast.transform.localRotation = Quaternion.identity;
+
+
+        HurtOnTouch hurt = fireblast.GetComponent<HurtOnTouch>();
+        hurt.damageOnTouchEnter = damage;
+        hurt.except = self;
+
+
 
     }
 
-    protected override void onInactivate(CharacterStats target)
+    protected override void onInactivate(CharacterStats self, CharacterStats target)
     {
 
     }

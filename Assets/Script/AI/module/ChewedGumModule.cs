@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using ExtensionMethods;
 
-public class ChewedGumModule : BaseAIModule
+public sealed  class ChewedGumModule : BaseAIModule
 {
 
     public ChewedGumModule()
@@ -16,19 +16,33 @@ public class ChewedGumModule : BaseAIModule
         
     }
 
-    public override void constructBehaviourTree(CharacterStats target, CharacterStats self, float recogRange)
+
+    private new void Start()
     {
+        base.Start();
+        constructBehaviourTree();
+    }
 
-        Node tryManaShieldActivate = new TrySkillActivate(this, self, skills["ManaShield"]);
+    private void Update()
+    {
+        base.update();
+    }
 
-        Node isEnemyClose = new IsEnemyClose(self.transform.position, target.transform.position, recogRange);
-        Node activateClosedSkill = new ActivateSkills(target, new List<BaseSkill> { skills["Explosion"], skills["FireBlast"] }, 1F);
-        Node tryClosedAttack = new Sequence(new List<Node>{ isEnemyClose, activateClosedSkill });
 
-        Node activateRangedSkill = new ActivateSkills (target,new List<BaseSkill> { skills["IceAge"], skills["Thunder"] },3F);
+    protected override void constructBehaviourTree()
+    {
+        Node tryManaShieldActivate = new TrySkillActivate(this, self, self, skills["ManaShield"]);
+        Node chase = new Chase(target.transform, navAgent, 5F);
+        Node isEnemyClose = new IsEnemyClose(self.transform, target.transform, closeAttackRange);
+        Node activateClosedSkill = new TryActivateSkills(self, target, new List<BaseSkill> { skills["Explosion"], skills["FireBlast"] }, 1F);
+        Node activateRangedSkill = new TryActivateSkills (self, target,new List<BaseSkill> { skills["IceAge"], skills["Thunder"] },3F);
+        Node intervalNode = new Interval(5F);
 
-        Node FightNode = new Selector(new List<Node> { tryManaShieldActivate, tryClosedAttack, activateRangedSkill });
-        topNode = new Selector(new List<Node> { FightNode  });
+        Node tryClosedSkill = new Sequence(new List<Node>{ isEnemyClose, activateClosedSkill });
+        Node tryActivateSkill = new Selector(new List<Node> { tryClosedSkill, activateRangedSkill });
+        Node tryAttack = new Sequence(new List<Node> { intervalNode , tryActivateSkill });
+        Node fight = new Selector(new List<Node> { tryManaShieldActivate, tryAttack , chase});
+        topNode = new Selector(new List<Node> { fight });
 
     }
 

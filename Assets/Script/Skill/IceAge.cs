@@ -7,7 +7,7 @@ public class IceAge : BaseSkill
     private float randomWeight = 3;
 
     public IceAge(int numberOfIce, float randomWeight)
-   : base(5F, 10F)
+   : base(20F, 5F)
     {
         this.numOfIce = numberOfIce;
         this.randomWeight = randomWeight;
@@ -19,10 +19,11 @@ public class IceAge : BaseSkill
     }
 
     //코루틴으로 만들어야함.
-    protected override IEnumerator onActivate(CharacterStats target)
+    protected override IEnumerator onActivate(CharacterStats self, CharacterStats target)
     {
-        Debug.Log("Time.time : " + Time.time + " activateTimeStamp :" + activateTimeStamp +
-            " duration : " + duration);
+        if (self == null || target == null)
+            yield break;
+
         //duration 동안 1초 간격으로
         while (Time.time < activateTimeStamp + duration)
         {
@@ -43,7 +44,7 @@ public class IceAge : BaseSkill
 
     }
 
-    protected override void onInactivate(CharacterStats target)
+    protected override void onInactivate(CharacterStats self, CharacterStats target)
     {
 
     }

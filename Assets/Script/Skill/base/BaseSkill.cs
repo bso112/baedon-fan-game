@@ -1,11 +1,12 @@
-﻿using ExtensionMethods;
-using System;
+﻿using System.Collections;
 using UnityEngine;
-using System.Collections;
 
 
 public abstract class BaseSkill
 {
+    protected float damage;
+    //스킬의 술사
+    protected CharacterStats self;
     //스킬의 대상
     protected CharacterStats target;
     //쿨타임 (지속시간 포함)
@@ -14,6 +15,7 @@ public abstract class BaseSkill
     protected readonly float duration;
     //스킬을 사용한 시점
     protected float activateTimeStamp = 0F;
+
 
     public abstract string getName();
 
@@ -32,56 +34,63 @@ public abstract class BaseSkill
     {
 
         if (isDurationOver() && target != null)
-            Inactivate(target);
+            Inactivate(self, target);
     }
 
     /// <summary>
-    /// 쿨타임이 끝나면 스킬을 발동한다.
+    /// 쿨타임이 끝나면 스킬을 발동한다. (self와 target은 같을 수 있다)
     /// </summary>
-    /// <param name="target"></param>
-    public bool activate(CharacterStats target)
+    /// <param name="self">스킬을 발동한 사람</param>
+    /// <param name="target">타깃</param>
+    public bool activate(CharacterStats self, CharacterStats target)
     {
         bool result = false;
 
-        target.ifNotNull(it =>
-        {
+        if (target == null || self == null)
+            return false;
 
-            if (!canActivate())
-                return;
 
-            Debug.Log("activate skill : " + getName());
 
-            //이미 활성화 되있다면, 스킬 비활성화
-            Inactivate(target);
+        if (!canActivate())
+            return false;
 
-            //타겟 설정
-            this.target = it;
-            //canActivate 조건에서 Time.time이 0이면 안됨.
-            activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
+        Debug.Log("activate skill : " + getName());
 
-            //스킬 활성화
-            it.StartCoroutine(onActivate(target));
+        //이미 활성화 되있다면, 스킬 비활성화
+        Inactivate(self, target);
 
-            result = true;
-        });
+        this.self = self;
+        this.target = target;
+
+        //canActivate 조건에서 Time.time이 0이면 안됨.
+        activateTimeStamp = Time.time == 0 ? 0.1F : Time.time;
+
+        //스킬 활성화
+        self.StartCoroutine(onActivate(self, target));
+
+        result = true;
+
 
         return result;
     }
 
 
-    public void Inactivate(CharacterStats target)
+    public void Inactivate(CharacterStats self, CharacterStats target)
     {
-        target.ifNotNull(it =>
-        {
-            onInactivate(it);
-            this.target = null;
+        if (target == null || self == null)
+            return;
 
-        });
+
+        onInactivate(self, target);
+        this.self = null;
+        this.target = null;
+
+
     }
 
     protected bool canActivate()
     {
-        if(Time.time < cooldown && activateTimeStamp == 0)
+        if (Time.time < cooldown && activateTimeStamp == 0)
             return true;
 
         return Time.time > activateTimeStamp + cooldown;
@@ -89,7 +98,7 @@ public abstract class BaseSkill
 
 
     protected bool isDurationOver()
-    { 
+    {
         return Time.time > activateTimeStamp + duration;
     }
 
@@ -106,8 +115,8 @@ public abstract class BaseSkill
 
     }
 
-    protected abstract IEnumerator onActivate(CharacterStats target);
-    protected abstract void onInactivate(CharacterStats target);
+    protected abstract IEnumerator onActivate(CharacterStats self, CharacterStats target);
+    protected abstract void onInactivate(CharacterStats self, CharacterStats target);
 
 
 }

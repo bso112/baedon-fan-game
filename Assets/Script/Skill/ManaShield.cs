@@ -8,7 +8,7 @@ public sealed class ManaShield : BaseSkill
 
     //쿨타임 정해주기
     public ManaShield()
-       : base(5F, 2F)
+       : base(10F, 20F)
     {
 
     }
@@ -20,16 +20,21 @@ public sealed class ManaShield : BaseSkill
     }
 
 
-    protected override IEnumerator  onActivate(CharacterStats target)
+    protected override IEnumerator  onActivate(CharacterStats self, CharacterStats target)
     {
+        if (self == null || target == null)
+            yield break;
+
         target.manaBarrierActivate();
         manaShield = GameObject.Instantiate(Resources.Load("Prefabs/ManaShield"), target.transform, false);
-        yield return null;
     }
 
 
-    protected override void onInactivate(CharacterStats target)
+    protected override void onInactivate(CharacterStats self, CharacterStats target)
     {
+        if (self == null || target == null)
+            return;
+
         target.manaBarrierInactivate();
         if(manaShield != null)
             GameObject.Destroy(manaShield);

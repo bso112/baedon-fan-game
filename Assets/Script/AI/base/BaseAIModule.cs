@@ -1,23 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
-
-public enum AI_MODULE_TYPE { CHEWEDGUM, END }
-
-[Serializable]
-public abstract class BaseAIModule
+[RequireComponent(typeof(CharacterStats))]
+[RequireComponent(typeof(NavMeshAgent))]
+public abstract class BaseAIModule : MonoBehaviour
 {
+    [SerializeField]
+    protected CharacterStats target;
+    //여기 범위까지는 근접공격을 우선시
+    [SerializeField]
+    protected float closeAttackRange = 0F;
+
+    
     protected Dictionary<string, BaseSkill> skills = new Dictionary<string, BaseSkill>();
+    protected NavMeshAgent navAgent;
     protected Node topNode;
+    protected CharacterStats self;
 
-    //스킬 사이의 최소시간
-    private readonly float minmumGapBtwSkill = 3F;
-    private float activateSkillTimeStamp = 0F;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, closeAttackRange);
+    }
 
+    protected void Start()
+    {
+        self = GetComponent<CharacterStats>();
+        navAgent = GetComponent<NavMeshAgent>();
+    }
 
-    public void update()
+    protected void update()
     {
         foreach (var skill in skills)
         {
@@ -28,7 +43,7 @@ public abstract class BaseAIModule
     }
 
 
-    public abstract void constructBehaviourTree(CharacterStats target, CharacterStats self, float recogRange);
+    protected abstract void constructBehaviourTree();
 
 
     protected void addSkill(BaseSkill skill)
