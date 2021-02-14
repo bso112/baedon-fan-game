@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -40,6 +42,18 @@ public class PlayerController : MonoBehaviour
         tryRoll();
 
         applyGravity();
+    }
+
+    public IEnumerator knockback(Vector3 direction, float force, float duration)
+    {
+        float timeStamp = Time.time;
+
+        while (Time.time < timeStamp + duration)
+        {
+            charController.SimpleMove(direction * force);
+            force = Mathf.Max(0, force - 0.2F);
+            yield return null;
+        }
     }
 
     private void tryPlayAttackAnim()

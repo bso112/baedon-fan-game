@@ -32,6 +32,9 @@ public class Explosion : BaseSkill
         hurt.except = self;
         hurt.damageOnTouchEnter = damage;
 
+        PushOnTouch push = explosion.GetComponent<PushOnTouch>();
+      
+
 
     }
 

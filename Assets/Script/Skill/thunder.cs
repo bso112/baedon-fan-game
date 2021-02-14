@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using ExtensionMethods;
 public class Thunder : BaseSkill
 {
 
     public Thunder()
-    : base(10F, 3F)
+    : base(10F, 4F)
     {
-
+        damage = 10F;
     }
 
 
@@ -36,7 +36,8 @@ public class Thunder : BaseSkill
 
         GameObject toInstantiate = Resources.Load("Prefabs/Thunder") as GameObject;
         GameObject thunder = GameObject.Instantiate(toInstantiate, target.transform.position + new Vector3(0, 20F, 0), toInstantiate.transform.rotation);
-        thunder.GetComponent<DestroySelf>().lifetime = duration - 1.5F;
+        thunder.GetComponent<DestroySelf>().ifNotNull(it => it.lifetime = duration - 1.5F);
+        thunder.GetComponent<Lightning>().ifNotNull(it => { it.except = self; it.damage = damage; });
         
     }
 

@@ -978,7 +978,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 50
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4827,8 +4827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4877fe6851ab83e46bfe3968dd91b4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 2
   damage: 15
+  except: {fileID: 0}
   effectOnCollide: {fileID: 287439583512012933, guid: cb5ac3bd2ca18904dbfebdeefff45241,
     type: 3}
 --- !u!114 &3857570559423719082

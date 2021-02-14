@@ -4,9 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class Lightning : MonoBehaviour
 {
+    [HideInInspector]
+    public float damage = 1F;
+    [HideInInspector]
+    public CharacterStats except;
 
-    public float range;
-    public float damage;
     public GameObject effectOnCollide;
 
     private List<ParticleCollisionEvent> collisionEvents;
@@ -27,17 +29,15 @@ public class Lightning : MonoBehaviour
         foreach (var collision in collisionEvents)
         {
             if (effectOnCollide != null)
-                GameObject.Instantiate(effectOnCollide, collision.intersection, Quaternion.identity);
-
-            Collider[] colliders = Physics.OverlapSphere(collision.intersection, range);
-
-            foreach (var collider in colliders)
             {
-                CharacterStats stats = collider.GetComponent<CharacterStats>();
-                if (stats)
+               GameObject hitBox = GameObject.Instantiate(effectOnCollide, collision.intersection, Quaternion.identity) as GameObject;
+                HurtOnTouch hurt = hitBox.GetComponent<HurtOnTouch>();
+                if (hurt)
                 {
-                    stats.takeDamage(damage);
+                    hurt.damageOnTouchEnter = damage;
+                    hurt.except = except;
                 }
+
             }
         }
 

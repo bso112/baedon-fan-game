@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5223896863177685532}
   - component: {fileID: 4682755606880277646}
   - component: {fileID: 3911963294846706284}
+  - component: {fileID: -2389313506080623114}
   m_Layer: 0
   m_Name: Fireblast
   m_TagString: Untagged
@@ -4761,3 +4762,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageOnTouchEnter: 0
   except: {fileID: 0}
+--- !u!114 &-2389313506080623114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767315364247806589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d49a12ee644324fa526fdb273ac2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 5
+  forceDuration: 1
